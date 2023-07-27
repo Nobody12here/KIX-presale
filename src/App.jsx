@@ -42,9 +42,10 @@ function App() {
       .purchaseTokens(tokenAmount)
       .send({ from: accounts[0],value:price });
     console.log(tx);
+    alert("Sucessfully bought tokens");
 
   } catch (e) {
-    console.log(e.message);
+    alert("Error in transaction: "e.message);
   }
 }
   return (
