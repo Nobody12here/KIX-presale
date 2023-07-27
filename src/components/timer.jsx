@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const Timer = ({ endTime }) => {
   const [remainingTime, setRemainingTime] = useState(0);
-
+  const [hasEnded, setHasEnded] = useState(false);
   useEffect(() => {
     const updateTime = () => {
       const currentTime = Math.floor(Date.now() / 1000); // Current Unix timestamp in seconds
@@ -10,6 +10,8 @@ const Timer = ({ endTime }) => {
 
       if (timeDifference > 0) {
         setRemainingTime(timeDifference);
+      }else{
+        setHasEnded(true);
       }
     };
 
@@ -28,9 +30,10 @@ const Timer = ({ endTime }) => {
 
     return <h1 style={{color:'gray'}}>{`${days}d ${hours}h ${minutes}m ${seconds}s`}</h1>;
   };
-
+  console.log(hasEnded)
   return(
   <div style = {{marginLeft:"auto",marginRight:"auto"}}>
+
     {formatTime(remainingTime)}
   </div>
   )
