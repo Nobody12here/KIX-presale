@@ -15,7 +15,7 @@ function App() {
   const [tokenAmount, setTokenAmount] = useState(null);
   const [contract,SetContract]=useState("")
   const [isConnected,setIsConnected]=useState(false)
-
+  const [hasEnded,setHasEnded]=useState(false)
   useEffect( () => {
   async function fetchContract() {
     if (isConnected) {
@@ -37,22 +37,23 @@ function App() {
     fetchContract();
   }, [isConnected]);
   async function buyTokens(contract,tokenAmount,price) {
+
   try {
     const tx = await contract.methods
       .purchaseTokens(tokenAmount)
       .send({ from: accounts[0],value:price });
     console.log(tx);
     alert("Sucessfully bought tokens");
-
   } catch (e) {
-    alert("Error in transaction: "e.message);
+    console.log(e.message)
+    alert(e.message);
   }
 }
   return (
       <div>
           <Header setIsConnected={setIsConnected}/>
           <div className="main-content" >
-            <Timer endTime={endTime}/>
+            <Timer endTime={endTime} setHasEnded={setHasEnded}/>
             <TokenAmount contract={contract} buyToken={buyTokens} tokenPrice={tokenPrice}/>
           </div>
       </div>
